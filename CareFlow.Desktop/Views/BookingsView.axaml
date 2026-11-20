@@ -1,0 +1,57 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:CareFlow.Desktop.ViewModels"
+             x:Class="CareFlow.Desktop.Views.BookingsView"
+             x:DataType="vm:BookingsViewModel">
+  <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*,*" Margin="16" RowSpacing="8" ColumnSpacing="16">
+
+    <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Classes="heading" Text="Confirmed Bookings" />
+
+    <ListBox Grid.Row="1" Grid.Column="0"
+             ItemsSource="{Binding Bookings}"
+             SelectedItem="{Binding SelectedBooking}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Border Classes="card">
+            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+              <TextBlock Grid.Column="0" Text="{Binding Id, StringFormat='#{0}'}" FontWeight="Bold" />
+              <StackPanel Grid.Column="1">
+                <TextBlock Text="{Binding PatientName}" FontWeight="SemiBold" />
+                <TextBlock Text="{Binding BookingDate, StringFormat='Date: {0:yyyy-MM-dd}'}" />
+              </StackPanel>
+              <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4">
+                <TextBlock Text="{Binding ServiceCount}" />
+                <TextBlock Text="service(s)" />
+              </StackPanel>
+            </Grid>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <Border Grid.Row="1" Grid.Column="1" Classes="card" VerticalAlignment="Top">
+      <StackPanel Spacing="6">
+        <TextBlock Text="Booking details" FontWeight="Bold" FontSize="16" />
+        <TextBlock Text="Select a booking from the list." Opacity="0.6"
+           IsVisible="{Binding Detail, Converter={x:Static ObjectConverters.IsNull}}" />
+        <TextBlock Text="{Binding Detail.Id, StringFormat='Booking #{0}'}" />
+        <TextBlock Text="{Binding Detail.PatientName, StringFormat='Patient: {0}'}" />
+        <TextBlock Text="{Binding Detail.BookingDate, StringFormat='Date: {0:yyyy-MM-dd}'}" />
+        <TextBlock Text="Services:" FontWeight="SemiBold" />
+        <ItemsControl ItemsSource="{Binding Detail.Services}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding}" />
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <TextBlock Text="{Binding Detail.CreatedAtUtc, StringFormat='Confirmed (UTC): {0:yyyy-MM-dd HH:mm}'}" Opacity="0.7" />
+      </StackPanel>
+    </Border>
+
+    <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+      <TextBlock Classes="status" Text="{Binding StatusMessage}" IsVisible="{Binding !IsError}" />
+      <TextBlock Text="{Binding StatusMessage}" Foreground="IndianRed" IsVisible="{Binding IsError}" />
+    </StackPanel>
+  </Grid>
+</UserControl>

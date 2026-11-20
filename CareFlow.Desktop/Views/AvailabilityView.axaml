@@ -1,0 +1,37 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:CareFlow.Desktop.ViewModels"
+             x:Class="CareFlow.Desktop.Views.AvailabilityView"
+             x:DataType="vm:AvailabilityViewModel">
+  <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="16" RowSpacing="8">
+
+    <TextBlock Grid.Row="0" Classes="heading" Text="Service Availability" />
+
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8">
+      <TextBlock Text="Date:" VerticalAlignment="Center" />
+      <DatePicker SelectedDate="{Binding SelectedDate}" />
+    </StackPanel>
+
+    <ListBox Grid.Row="2" ItemsSource="{Binding Items}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Border Classes="card">
+            <Grid ColumnDefinitions="*,Auto">
+              <TextBlock Grid.Column="0" Text="{Binding Name}" FontWeight="SemiBold" />
+              <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4">
+                <TextBlock Text="{Binding Remaining}" FontWeight="Bold" />
+                <TextBlock Text="remaining of" />
+                <TextBlock Text="{Binding DailyCapacity}" />
+              </StackPanel>
+            </Grid>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <StackPanel Grid.Row="3">
+      <TextBlock Classes="status" Text="{Binding StatusMessage}" IsVisible="{Binding !IsError}" />
+      <TextBlock Text="{Binding StatusMessage}" Foreground="IndianRed" IsVisible="{Binding IsError}" />
+    </StackPanel>
+  </Grid>
+</UserControl>

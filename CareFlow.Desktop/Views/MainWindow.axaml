@@ -1,0 +1,35 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:CareFlow.Desktop.ViewModels"
+        xmlns:views="using:CareFlow.Desktop.Views"
+        x:Class="CareFlow.Desktop.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="CareFlow - Diagnostic Booking"
+        Width="1000" Height="650" MinWidth="800" MinHeight="500">
+
+  <Grid RowDefinitions="Auto,*">
+    <TextBlock Grid.Row="0" Classes="appTitle" Text="CareFlow - Diagnostic Booking" />
+
+    <Grid Grid.Row="1" ColumnDefinitions="Auto,*">
+      <StackPanel Grid.Column="0" Classes="nav" Spacing="4" MinWidth="170">
+        <Button Classes="navButton" Content="Availability" Command="{Binding ShowAvailabilityCommand}" />
+        <Button Classes="navButton" Content="New Booking" Command="{Binding ShowNewBookingCommand}" />
+        <Button Classes="navButton" Content="Bookings" Command="{Binding ShowBookingsCommand}" />
+      </StackPanel>
+
+      <ContentControl Grid.Column="1" Content="{Binding CurrentView}">
+        <ContentControl.DataTemplates>
+          <DataTemplate DataType="vm:AvailabilityViewModel">
+            <views:AvailabilityView />
+          </DataTemplate>
+          <DataTemplate DataType="vm:NewBookingViewModel">
+            <views:NewBookingView />
+          </DataTemplate>
+          <DataTemplate DataType="vm:BookingsViewModel">
+            <views:BookingsView />
+          </DataTemplate>
+        </ContentControl.DataTemplates>
+      </ContentControl>
+    </Grid>
+  </Grid>
+</Window>
