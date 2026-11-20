@@ -4,7 +4,11 @@ ITSD81 Performance Task 4. A desktop application for recording diagnostic bookin
 A booking can contain 1 to 3 services for one date, and it is saved **all-or-nothing**: if any requested
 service is fully booked, nothing is recorded.
 
-**Team (pair):** Rafael Sofian Guipetacio and Deniele Bern M. Miasco
+**Prepared by:**
+
+Deniel Bern M. Miasco
+
+Rafael Sofian O. Guipetacio
 
 ## Tech stack
 
